@@ -1,23 +1,26 @@
 import pytest
 from unittest.mock import Mock, patch
-from DetectAntivirusService  import check_auto_start_services  # Импортируйте вашу функцию
-#
 
-def test_get_auto_start_services_empty():
-    # Тест на отсутствие служб в списке
-    with patch('builtins.open', pytest.mock.mock_open(read_data="")):
-        assert check_auto_start_services("av_services.txt") == []
+# Мокируем модуль winreg внутри нашего тестового модуля
+@patch('DetectAntivirusService.winreg', create=True)
+def test_check_auto_start_services(mock_winreg):
+    # Настройка моков для winreg
+    mock_key = Mock()
+    mock_winreg.OpenKey.return_value = mock_key
+    mock_winreg.EnumKey.return_value = 'SomeService'
+    mock_winreg.QueryValueEx.return_value = (2, 'REG_DWORD')
 
-@patch('DetectAntivirusService.winreg')
-@patch('winreg.OpenKey')
-@patch('winreg.QueryInfoKey', return_value=(1, 0))
-@patch('winreg.EnumKey', return_value='SomeAntivirusService')
-@patch('winreg.QueryValueEx', return_value=(2, 'REG_DWORD'))
-def test_get_auto_start_services_found(mock_openkey, mock_queryinfokey, mock_enumkey, mock_queryvalueex):
-    # Тест на наличие службы с автозапуском в списке
-    with patch('builtins.open', pytest.mock.mock_open(read_data="SomeAntivirusService")):
-        services = check_auto_start_services("av_services.txt")
-        assert services == ['SomeAntivirusService']
-        mock_openkey.assert_called_with(winreg.HKEY_LOCAL_MACHINE, r"SYSTEMCurrentControlSetServicesSomeAntivirusService", access=winreg.KEY_READ)
+    # Теперь импортируем функцию, которую хотим протестировать
+    from DetectAntivirusService import check_auto_start_services
 
-# Можно добавить больше тестов для различных сценариев
+    # Теперь вызываем вашу функцию
+    result = check_auto_start_services()
+
+    # Проверяем, что функция отработала корректно
+    # Например, мы ожидаем, что функция вернет список служб
+    assert result == ['SomeService']
+
+    # Проверяем, что были вызваны правильные функции из winreg
+    mock_winreg.OpenKey.assert_called_once()
+    mock_winreg.EnumKey.assert_called_once()
+    mock_winreg.QueryValueEx.assert_called_once()
