@@ -25,7 +25,7 @@ def check_auto_start_services(av_list_file):
         except Exception as e:
             print(f"An error occured: {e}")
 
-# File with AV services identifiers to check
+## File with AV services identifiers to check
 av_list_file = "av_services.txt"
 
 
