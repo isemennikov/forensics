@@ -19,14 +19,19 @@ def check_auto_start_services(av_list_file):
                             with winreg.OpenKey(regheve, sub_path, access=winreg.KEY_READ) as subkey:
                                 start_type = winreg.QueryValueEx(subkey, 'Start')[0]
                                 if start_type == 2:
+                                    found = True # matches not found
                                     print(f"Services {subkey_name} set to run automatically")
                     except FileNotFoundError:
                         continue
         except Exception as e:
             print(f"An error occured: {e}")
+        if not found:
+            print("No matching AV services found set to auto start.")
 
 ## File with AV services identifiers to check
 av_list_file = "av_services.txt"
+check_auto_start_services(av_list_file)
+
 
 
 
