@@ -1,5 +1,5 @@
 
-from scapy.all import sniff, sendp, Ether, IP, TCP, IPv6
+from scapy.all import *
 
 ip_address = "172.16.249.136"
 open_ports = [53, 80]
