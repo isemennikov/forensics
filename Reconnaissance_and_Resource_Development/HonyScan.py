@@ -4,7 +4,7 @@ from scapy.all import *
 ip_address = "172.16.249.136"
 open_ports = [53, 80]
 honey_ports = [8080, 8443]
-blocked_hosts = ["172.16.249.1"]
+blocked_hosts = []
 
 
 def create_response(packet, flags):
