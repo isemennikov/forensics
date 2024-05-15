@@ -5,7 +5,7 @@ def check_auto_start_services(av_list_file):
         av_list_file = [line.strip() for line in file if line.strip()]
 
         regheve = winreg.HKEY_LOCAL_MACHINE
-        regpath = r"SYSTEMCurrentControlSetServices"
+        regpath = r"SYSTEM\CurrentControlSet\Services"
 
         try:
             with winreg.OpenKey(regheve, regpath, access=winreg.KEY_READ) as key:
