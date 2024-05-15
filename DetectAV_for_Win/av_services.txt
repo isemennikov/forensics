@@ -4,3 +4,6 @@ Norton
 Symatech
 Kaspersky
 AVK
+MdCoreSvc
+WinDefend
+WdNisSvc
