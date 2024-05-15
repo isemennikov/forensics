@@ -1,6 +1,7 @@
 import pytest
 from unittest.mock import Mock, patch
 from DetectAntivirusServisec.py  import get_auto_start_services  # Импортируйте вашу функцию
+#
 
 def test_get_auto_start_services_empty():
     # Тест на отсутствие служб в списке
