@@ -1,5 +1,7 @@
 from __future__ import print_function
 import argparse
+import hashlib
+from datetime import datetime
 
 __authors__ = ["Ilya Semennikov"]
 __date__ = "20241030"
@@ -36,7 +38,7 @@ output_file = args.OUTPUT_FILE
 
 # logging of start parsing
 with open(args.log, 'a') as log_file:
-    log_file.write(f"[{datetime.now()}] Start parsing file {input_file}\n")
+    log_file.write(f"[{datetime.now()}] Start parsing {input_file} file\n")
 
 if args.hash:
     ha = args.hash_algoritm
@@ -50,6 +52,9 @@ if args.hash:
     # hash func to output file
     with open(output_file, 'w') as output_file:
         output_file.write(f"Hash: {hash_value}\n")
+    #Loggin succes ending
+    log_file.write(f"[{datetime.now()}] Parsing is complit. Result of pasring in {output_file} file\n ")
+
 
 if not args.log:
     print("Log file not defined. Will write to stdout")
