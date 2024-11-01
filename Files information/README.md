@@ -1,18 +1,18 @@
-# File Hashing Script
+## File Hashing Script ja.py
 
-## Description
+### Description
 This Python script allows users to compute the hash values of files within a specified directory or for individual 
 files. It supports both SHA1 and SHA256 hashing algorithms and can process files recursively in a given directory. 
 The results, including the hash values, are saved to an output file, and detailed logs of the operations are maintained
 in a specified log file.
 
-## Usage
+### Usage
 To run the script, use the following command:
 
 ```bash
-python just_arguments.py <INPUT_FILE_OR_DIRECTORY> <OUTPUT_FILE> --hash --hash-algoritm <ALGORITHM> -l <LOG_FILE>
+python ja.py <INPUT_FILE_OR_DIRECTORY> <OUTPUT_FILE> --hash --hash-algoritm <ALGORITHM> -l <LOG_FILE>
 ```
-## Future Improvements
+### Future Improvements
 
 - Explore additional argparse functionality: Implement the argparse.FileType object to accept file objects directly as
 input, enhancing usability
@@ -27,3 +27,15 @@ issues
 for easier integration with other tools
 - Use code reuse to reduce code and make it more structured and logical. for example,
 add functions for if args.hash:  DONE
+
+## Tree of directorys  os.tree os.containdir
+
+### Description
+These two simple scripts will build the directory tree and directory contents.
+### Usage 
+To run the script, use the following command:
+
+```bash
+python os.tree DIR_PATH -o output.file or use -h
+python os.containdir.py 
+```
