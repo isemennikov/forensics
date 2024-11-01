@@ -25,3 +25,5 @@ issues
 
 - Output Formatting Options: Allow users to choose different output formats for the results, such as JSON or CSV, 
 for easier integration with other tools
+- Use code reuse to reduce code and make it more structured and logical. for example,
+add functions for if args.hash:  DONE
