@@ -4,10 +4,7 @@ import os
 
 __authors__ = ["Ilya Semennikov"]
 __date__ = "20241030"
-__description__ = "Directory tree walker"
-
-from idlelib.outwin import file_line_pats
-
+__description__ = "Directory files walker"
 
 
 parser = argparse.ArgumentParser(
