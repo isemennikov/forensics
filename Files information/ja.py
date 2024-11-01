@@ -30,6 +30,25 @@ args = parsers.parse_args()
 input_path = args.INPUT_FILE
 output_file = args.OUTPUT_FILE
 
+def hash_file(file_path, hash_algorithm, output_file, log_file):
+    print(f"File hashing enabled with {hash_algorithm} algorithm for {file_path}")
+    hash_func = hashlib.new(hash_algorithm)
+    try:
+        with open(file_path, 'rb') as f:
+            while chunk := f.read(8192):
+                hash_func.update(chunk)
+        hash_value = hash_func.hexdigest()
+
+        # Write hash sum to output file
+        with open(output_file, 'a') as out_file:  # Use 'a' for adding
+            out_file.write(f"Hash: {hash_value}\n")
+
+        # Logging successful completion
+        log_file.write(f"[{datetime.now()}] Processing completed successfully. The result is written to {output_file} file\n")
+    except Exception as e:
+        log_file.write(f"[{datetime.now()}] Error parsing {file_path} file: {e}\n")
+        print(f"Error parsing {file_path} file: {e}")
+
 # Logging the start of parsing
 with open(args.log, 'a') as log_file:
     if os.path.isdir(input_path):
@@ -42,51 +61,12 @@ with open(args.log, 'a') as log_file:
                 log_file.write(f"[{datetime.now()}] Parsing the file {full_input_path}\n")
 
                 if args.hash:
-                    ha = args.hash_algoritm
-                    print(f"File hashing enabled with {ha} algorithm for {full_input_path}")
-
-                    # Hashing the file
-                    hash_func = hashlib.new(ha)
-                    try:
-                        with open(full_input_path, 'rb') as f:
-                            while chunk := f.read(8192):
-                                hash_func.update(chunk)
-                        hash_value = hash_func.hexdigest()
-
-                        # Write hash sum to output file
-                        with open(output_file, 'a') as out_file:  # Use 'a' for adding
-                            out_file.write(f"Hash: {hash_value}\n")
-
-                        # Logging successful completion
-                        log_file.write(
-                            f"[{datetime.now()}] Processing completed successfully. The result is written to {output_file} file\n")
-                    except Exception as e:
-                        log_file.write(f"[{datetime.now()}] Erro parsing {full_input_path} file: {e}\n")
-                        print(f"Error parsing  {full_input_path} file: {e}")
+                    hash_file(full_input_path, args.hash_algoritm, output_file, log_file)
     else:
         # Parsing one file
         log_file.write(f"[{datetime.now()}] Start parsing {input_path} file\n")
 
         if args.hash:
-            ha = args.hash_algoritm
-            print(f"File hashing enabled with {ha} algorithm for {input_path}")
-
-            # Hashing the file
-            hash_func = hashlib.new(ha)
-            try:
-                with open(input_path, 'rb') as f:
-                    while chunk := f.read(8192):
-                        hash_func.update(chunk)
-                hash_value = hash_func.hexdigest()
-
-                # Write hash sum to output file
-                with open(output_file, 'w') as out_file:
-                    out_file.write(f"Hash: {hash_value}\n")
-
-                # Logging successful completion
-                log_file.write(f"[{datetime.now()}] Processing completed successfully. The result is written to {output_file} file\n")
-            except Exception as e:
-                log_file.write(f"[{datetime.now()}] Error parsing {input_path} file: {e}\n")
-                print(f"Erros parsing {input_path} file: {e}")
+            hash_file(input_path, args.hash_algoritm, output_file, log_file)
         else:
-            log_file.write(f"[{datetime.now()}] Hasing not set.\n")
+            log_file.write(f"[{datetime.now()}] Hashing not set.\n")

@@ -155,6 +155,11 @@ dmypy.json
 cython_debug/
 
 filesinfo/
+# Виртуальные окружения
+venv/
+env/
+.venv/
+.env/
 # PyCharm
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
 #  be found at https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore
