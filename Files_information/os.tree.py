@@ -25,11 +25,11 @@ def generate_tree(path, indent=""):
 
     return tree_str
 
-
 def main():
     parser = argparse.ArgumentParser(
         description=__description__,
-        epilog="Developed by {} on {}".format(", ".join(__authors__), __date__) # which displays information about the author and date at the end of the help
+        epilog="Developed by {} on {}".format(", ".join(__authors__), __date__)
+        # which displays information about the author and date at the end of the help
     )
     parser.add_argument(
         "DIR_PATH",
